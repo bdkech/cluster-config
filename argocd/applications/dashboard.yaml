@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: kubernetes-dashboard
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/bdkech/cluster-config.git
-    path: argocd/install
-    targetRevision: main  # or a branch/tag/commit
+    repoURL: https://kubernetes.github.io/dashboard/
+    chart: kubernetes-dashboard
+    targetRevision: 7.0.0 # Use the latest stable version or update as needed
     helm:
       valueFiles:
-        - values.yaml
+        - dashboard/values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: kubernetes-dashboard
   syncPolicy:
     automated:
       prune: true
