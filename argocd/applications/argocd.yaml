@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bdkech/cluster-config.git
-    path: cluster-config/argocd/install
+    path: argocd/install
     targetRevision: main  # or a branch/tag/commit
     helm:
       valueFiles:

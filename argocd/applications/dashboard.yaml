@@ -11,7 +11,7 @@ spec:
     targetRevision: 7.0.0 # Use the latest stable version or update as needed
     helm:
       valueFiles:
-        - ../../dashboard/values.yaml
+        - dashboard/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kubernetes-dashboard
