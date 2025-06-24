@@ -6,11 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/bdkech/cluster-config.git  # Update with your actual repo URL
-    path: dashboard
-    targetRevision: main
-    directory:
-      recurse: true
+    repoURL: https://kubernetes.github.io/dashboard/
+    chart: kubernetes-dashboard
+    targetRevision: 7.0.0 # Use the latest stable version or update as needed
+    helm:
+      valueFiles:
+        - ../../dashboard/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kubernetes-dashboard
