@@ -1,9 +1,0 @@
-# Custom values for Contour Helm chart
-# See https://github.com/bitnami/charts/tree/main/bitnami/contour for all options
-
-# Example: Enable Envoy service as LoadBalancer
-envoy:
-  service:
-    type: LoadBalancer
-
-# Add more customizations below as needed 
