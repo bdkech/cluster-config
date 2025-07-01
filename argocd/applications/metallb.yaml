@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: metallb
-    targetRevision: 5.1.2 # Use latest stable or update as needed
+    targetRevision: 6.4.18 # Use latest stable or update as needed
     helm:
       valueFiles:
         - values/metallb-helm-values.yaml
