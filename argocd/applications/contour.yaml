@@ -10,8 +10,18 @@ spec:
     chart: contour
     targetRevision: 17.0.2 # Use latest stable or update as needed
     helm:
-      valueFiles:
-        - values/contour-helm-values.yaml
+      values: |
+        # Contour Helm values for k3s + MetalLB + Gateway API
+        # See https://github.com/bitnami/charts/tree/main/bitnami/contour for all options
+        gatewayController:
+          enabled: true
+        envoy:
+          service:
+            type: LoadBalancer
+            loadBalancerIP: 192.168.1.100  # Set to an IP from your MetalLB pool
+          replicaCount: 1
+        contour:
+          replicaCount: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: projectcontour

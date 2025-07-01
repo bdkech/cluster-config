@@ -8,10 +8,21 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: metallb
-    targetRevision: 6.4.18 # Use latest stable or update as needed
+    targetRevision: 6.8.14 # Use latest stable or update as needed
     helm:
-      valueFiles:
-        - values/metallb-helm-values.yaml
+      values: |
+        # MetalLB Helm values
+        # See https://github.com/bitnami/charts/tree/main/bitnami/metallb for all options
+        configInline:
+          address-pools:
+            - name: default
+              protocol: layer2
+              addresses:
+                - 192.168.1.100-192.168.1.110  # Set to your desired range
+        controller:
+          replicaCount: 1
+        speaker:
+          replicaCount: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
