@@ -11,7 +11,7 @@ spec:
     targetRevision: 5.1.2 # Use latest stable or update as needed
     helm:
       valueFiles:
-        - ../../../metallb/helm-values.yaml
+        - values/metallb-helm-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
