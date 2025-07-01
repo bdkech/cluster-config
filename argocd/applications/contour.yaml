@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: contour
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: contour
+    targetRevision: 17.0.2 # Use latest stable or update as needed
+    helm:
+      valueFiles:
+        - ../../../ingress/contour/helm-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: projectcontour
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
