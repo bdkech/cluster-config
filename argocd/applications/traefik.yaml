@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 28.2.0 # Use latest stable or update as needed
+    helm:
+      values: |
+        # Traefik custom values
+        # Enable Gateway API support
+        experimental:
+          kubernetesGateway:
+            enabled: true
+        # Optionally, expose Traefik via LoadBalancer
+        service:
+          type: LoadBalancer
+        # Add more customizations below as needed
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
