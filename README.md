@@ -16,15 +16,13 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 - Access the Argo CD UI at [https://localhost:8080](https://localhost:8080)
 - Login as `admin` with the password above.
 
-### 2. Deploy NGINX Gateway Fabric (Gateway API Ingress)
+### 2. Bootstrap with the App of Apps Pattern
 
-1. **Create the required namespace:**
+1. **Apply the parent Application manifest:**
    ```sh
-   kubectl apply -f manifests/nginx-gateway-namespace.yaml
+   kubectl apply -f argocd/applications/app-of-apps.yaml
    ```
-2. **Sync the NGINX Gateway Fabric application in Argo CD:**
-   - The application manifest is at `argocd/applications/nginx-gateway-fabric.yaml`.
-   - This will deploy NGINX Gateway Fabric using the official manifests from the nginxinc GitHub repository.
+2. **Argo CD will automatically discover and manage all child Applications in `argocd/applications/`** (such as CRDs, NGINX Gateway Fabric, etc).
 
 ### 3. Managing Gateway API Resources
 
@@ -32,6 +30,9 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ## Directory Structure
 
-- `argocd/applications/` — Argo CD Application manifests
+- `argocd/applications/` — Argo CD Application manifests (parent and children)
 - `manifests/` — Cluster-wide manifests (namespaces, Gateway API resources, etc.)
 - `README.md` — This file
+
+## Notes
+- The App of Apps pattern enables scalable, declarative management of all cluster applications from a single parent Application.
