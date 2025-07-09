@@ -6,9 +6,15 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/nginxinc/nginx-gateway-fabric.git
-    targetRevision: v1.5.1
-    path: deploy
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: nginx-gateway-fabric
+    targetRevision: 2.0.2 # Use latest stable or update as needed
+    helm:
+      values: |
+        # NGINX Gateway Fabric custom values
+        # See https://github.com/nginxinc/nginx-gateway-fabric/tree/main/charts/nginx-gateway-fabric for all options
+        replicaCount: 1
+        # Add more customizations below as needed
   destination:
     server: https://kubernetes.default.svc
     namespace: nginx-gateway
