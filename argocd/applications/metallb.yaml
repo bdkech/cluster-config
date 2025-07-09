@@ -16,7 +16,7 @@ spec:
             - name: traefik-pool
               protocol: layer2
               addresses:
-                - 192.168.1.240-192.168.1.250
+                - 10.0.1.240-10.0.1.250
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
