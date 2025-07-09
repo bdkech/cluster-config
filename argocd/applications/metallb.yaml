@@ -3,15 +3,14 @@ kind: Application
 metadata:
   name: metallb
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: metallb
     targetRevision: 6.4.19
-    helm:
-      values: |
-        existingConfigMap: metallb-config
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
@@ -19,5 +18,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  dependsOn:
-    - metallb-config 
