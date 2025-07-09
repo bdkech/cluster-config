@@ -8,8 +8,15 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: metallb
-    targetRevision: 6.4.19 # Use latest stable or update as needed
-  destination:
+    targetRevision: 6.4.19
+    helm:
+      values: |
+        configInline:
+          address-pools:
+            - name: traefik-pool
+              protocol: layer2
+              addresses:
+                - 192.168.1.240-192.168.1.250
     server: https://kubernetes.default.svc
     namespace: metallb-system
   syncPolicy:
