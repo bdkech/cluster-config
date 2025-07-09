@@ -30,4 +30,5 @@ spec:
       prune: true
       selfHeal: true
   dependsOn:
-    - gateway-api-crds 
+    - gateway-api-crds
+    - metallb 
