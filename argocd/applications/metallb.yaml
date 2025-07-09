@@ -11,15 +11,7 @@ spec:
     targetRevision: 6.4.19
     helm:
       values: |
-        configInline:
-          address-pools:
-            - name: traefik-pool
-              protocol: layer2
-              addresses:
-                - 10.0.1.240-10.0.1.250
-          l2Advertisements:
-            - ipAddressPools:
-                - traefik-pool
+        existingConfigMap: metallb-config
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system

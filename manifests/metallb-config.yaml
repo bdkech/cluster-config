@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metallb-config
+  namespace: metallb-system
+data:
+  config: |
+    address-pools:
+      - name: traefik-pool
+        protocol: layer2
+        addresses:
+          - 10.0.1.240-10.0.1.250
+    l2Advertisements:
+      - ipAddressPools:
+          - traefik-pool 
