@@ -1,23 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: metallb-config
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: metallb
-    targetRevision: 6.4.19
-    helm:
-      values: |
-        existingConfigMap: metallb-config
+    repoURL: https://github.com/bdkech/cluster-config.git
+    targetRevision: main
+    path: manifests/metallb-config.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
-  dependsOn:
-    - metallb-config 
+      selfHeal: true 
