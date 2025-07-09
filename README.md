@@ -16,25 +16,22 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 - Access the Argo CD UI at [https://localhost:8080](https://localhost:8080)
 - Login as `admin` with the password above.
 
-### 2. Bootstrapping GitOps-managed Resources
+### 2. Deploy NGINX Gateway Fabric (Gateway API Ingress)
 
-- All cluster resources are managed via Argo CD Applications in the `argocd/applications/` directory.
-- Example: To install Contour ingress controller, Argo CD will sync the `contour.yaml` Application manifest, which deploys Contour via Helm.
+1. **Create the required namespace:**
+   ```sh
+   kubectl apply -f manifests/nginx-gateway-namespace.yaml
+   ```
+2. **Sync the NGINX Gateway Fabric application in Argo CD:**
+   - The application manifest is at `argocd/applications/nginx-gateway-fabric.yaml`.
+   - This will deploy NGINX Gateway Fabric using the official manifests from the nginxinc GitHub repository.
 
-### 3. Directory Structure
+### 3. Managing Gateway API Resources
 
-```
-argocd/
-  applications/
-    contour.yaml      # Argo CD Application for Contour
-ingress/
-  contour/
-    helm-values.yaml  # Custom Helm values for Contour
-```
+- Define your Gateway and HTTPRoute resources in the `manifests/` directory and sync them via Argo CD.
 
-### 4. Adding More Applications
+## Directory Structure
 
-- Add new Argo CD Application manifests to `argocd/applications/`.
-- Add your app manifests or Helm values under appropriate directories.
-
----
+- `argocd/applications/` — Argo CD Application manifests
+- `manifests/` — Cluster-wide manifests (namespaces, Gateway API resources, etc.)
+- `README.md` — This file
