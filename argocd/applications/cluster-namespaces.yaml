@@ -1,23 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: cluster-namespaces
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: metallb
-    targetRevision: 6.4.19
+    repoURL: https://github.com/bdkech/cluster-config.git
+    targetRevision: main
+    path: manifests/namespaces
   destination:
     server: https://kubernetes.default.svc
-    namespace: metallb-system
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
-  dependsOn:
-    - cluster-namespaces
-    - metallb-config
+      selfHeal: true 

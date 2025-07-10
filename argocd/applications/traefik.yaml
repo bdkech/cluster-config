@@ -30,5 +30,6 @@ spec:
       prune: true
       selfHeal: true
   dependsOn:
+    - cluster-namespaces
     - gateway-api-crds
     - metallb 
