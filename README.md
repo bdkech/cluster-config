@@ -22,9 +22,13 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
    ```sh
    kubectl apply -f argocd/applications/app-of-apps.yaml
    ```
-2. **Argo CD will automatically discover and manage all child Applications in `argocd/applications/`** (such as CRDs, NGINX Gateway Fabric, etc).
+2. **Argo CD will automatically discover and manage all child Applications in `argocd/applications/`** (such as Traefik, MetalLB, etc).
 
-### 3. Managing Gateway API Resources
+### 3. Managing Namespaces
+
+- All required namespaces are managed declaratively via the `cluster-namespaces` Application. No manual namespace creation is needed.
+
+### 4. Managing Gateway API Resources
 
 - Define your Gateway and HTTPRoute resources in the `manifests/` directory and sync them via Argo CD.
 
@@ -36,3 +40,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ## Notes
 - The App of Apps pattern enables scalable, declarative management of all cluster applications from a single parent Application.
+- Traefik is the ingress controller, deployed via Helm with Gateway API enabled.
+- MetalLB provides LoadBalancer IPs for bare metal clusters and is managed via Argo CD and Helm.
+- All namespaces are managed as a single Application (`cluster-namespaces`).
