@@ -3,14 +3,16 @@ kind: Application
 metadata:
   name: knative-operator
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/knative/operator
-    targetRevision: knative-v1.15.0 # Use latest stable version
-    path: config
+    repoURL: https://knative.github.io/operator
+    chart: knative-operator
+    targetRevision: 1.15.0
   destination:
     server: https://kubernetes.default.svc
     namespace: knative-operator
